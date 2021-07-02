@@ -15,6 +15,18 @@ class CreateMechanicsTable extends Migration
     {
         Schema::create('mechanics', function (Blueprint $table) {
             $table->id();
+            $table->string('emailMechanic');
+            $table->string('passwordMechanic');
+            $table->string('nameMechanic');
+            $table->string('surnameMechanic');
+            $table->string('identificationMechanic');
+            $table->string('phoneMechanic');
+            $table->string('profilePictureMechanic');
+            $table->string('genderMechanic');
+            $table->string('latitudeMechanic');
+            $table->string('longitudeMechanic');
+            $table->unsignedBigInteger('idCity');
+            $table->foreign('idCity')->references('id')->on('cities')->onDelete('cascade');
             $table->timestamps();
         });
     }
