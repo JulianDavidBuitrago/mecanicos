@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\mechanic;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
-class MechanicController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +43,10 @@ class MechanicController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\mechanic  $mechanic
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(mechanic $mechanic)
+    public function show($id)
     {
         //
     }
@@ -52,10 +54,10 @@ class MechanicController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\mechanic  $mechanic
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(mechanic $mechanic)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +66,10 @@ class MechanicController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\mechanic  $mechanic
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, mechanic $mechanic)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,11 +77,23 @@ class MechanicController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\mechanic  $mechanic
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(mechanic $mechanic)
+    public function destroy($id)
     {
         //
+    }
+
+    public function updateLocation(Request $request)
+    {
+        $user = User::where('id', Auth::user()->id)->first();
+
+        $user->latitude = $request->input("latitude");
+        $user->longitude = $request->input("longitude");
+        $user->save();
+
+        return redirect(RouteServiceProvider::HOME)->with('success', 'Se actualizo con exito tu ubiación');
+
     }
 }

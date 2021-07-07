@@ -19,6 +19,24 @@
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
+            <div>
+                <x-label for="lastName" :value="__('lastName')" />
+
+                <x-input id="lastName" class="block mt-1 w-full" type="text" name="lastName" :value="old('lastName')" required />
+            </div>
+
+            <div>
+                <x-label for="phone" :value="__('phone')" />
+
+                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
+            </div>
+
+            <div>
+                <x-label for="document" :value="__('Document')" />
+
+                <x-input id="document" class="block mt-1 w-full" type="text" name="document" :value="old('document')" required />
+            </div>
+
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
@@ -43,6 +61,12 @@
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                                 type="password"
                                 name="password_confirmation" required />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+
+                {!! Form::select('role', $roles, null, ['class' => 'block mt-1 w-full', 'placeholder' => 'Seleccione...']) !!}
             </div>
 
             <div class="flex items-center justify-end mt-4">

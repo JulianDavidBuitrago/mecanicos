@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TypeServiceController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +23,13 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('typeServices', TypeServiceController::class);
+    Route::resource('services', ServiceController::class);
+
+
+    Route::post('user/location', [UserController::class, 'updateLocation'])->name('user.location');
+});
 
 require __DIR__.'/auth.php';

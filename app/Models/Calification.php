@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class country extends Model
+class Calification extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nameCountry', 'codeCountry',
+        'calification'
     ];
 
-    public function departments()
+    public function users()
     {
-        return $this->hasMany(department::class);
+        return $this->belongsToMany(User::class);
     }
 }

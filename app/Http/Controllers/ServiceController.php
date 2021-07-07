@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 class ServiceController extends Controller
 {
@@ -35,7 +37,14 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $input['client_id'] = Auth::user()->id;
+
+        $service = new Service();
+        $service->fill($input);
+        $service->save();
+
+        return redirect(RouteServiceProvider::HOME)->with('success', 'El servicio fue añadido correctamente');
     }
 
     /**

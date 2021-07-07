@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\statusServiceScheduling;
+use App\Models\User;
+use App\Models\Service;
+use App\Models\TypeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
-class StatusServiceSchedulingController extends Controller
+class TypeServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +18,12 @@ class StatusServiceSchedulingController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard', [
+            'typeServices' => TypeService::where('user_id', Auth::user()->id)->get(),
+            'mechanics' => User::role('Mecánico')->pluck('name', 'id'),
+            'TypeServices' => TypeService::pluck('name', 'id'),
+            'services' => Service::where('mechanic_id', Auth::user()->id)->get(),
+        ]);
     }
 
     /**
@@ -35,16 +44,21 @@ class StatusServiceSchedulingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $input['user_id'] = Auth::user()->id;
+        $typeService = new TypeService();
+        $typeService->fill($input);
+        $typeService->save();
+        return redirect(RouteServiceProvider::HOME)->with('success', 'El tipo servicio se creo correctamente');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\statusServiceScheduling  $statusServiceScheduling
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(statusServiceScheduling $statusServiceScheduling)
+    public function show($id)
     {
         //
     }
@@ -52,10 +66,10 @@ class StatusServiceSchedulingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\statusServiceScheduling  $statusServiceScheduling
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(statusServiceScheduling $statusServiceScheduling)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +78,10 @@ class StatusServiceSchedulingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\statusServiceScheduling  $statusServiceScheduling
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, statusServiceScheduling $statusServiceScheduling)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +89,10 @@ class StatusServiceSchedulingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\statusServiceScheduling  $statusServiceScheduling
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(statusServiceScheduling $statusServiceScheduling)
+    public function destroy($id)
     {
         //
     }

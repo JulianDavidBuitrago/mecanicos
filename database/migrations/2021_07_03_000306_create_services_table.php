@@ -15,10 +15,15 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('maneService');
-            $table->string('descriptionService');
-            $table->unsignedBigInteger('idServiceType');
-            $table->foreign('idServiceType')->references('id')->on('service_types')->onDelete('cascade');
+            $table->dateTime('application_date');
+            $table->dateTime('scheduling_date');
+            $table->double('pre_charge', 8, 2);
+
+            $table->foreignId('mechanic_id')->constrained('users');
+            $table->foreignId('client_id')->constrained('users');
+            $table->foreignId('type_service_id')->constrained('type_services');
+
+            $table->timestamps();
         });
     }
 
