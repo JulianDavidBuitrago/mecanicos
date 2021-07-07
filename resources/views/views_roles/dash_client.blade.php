@@ -7,8 +7,8 @@
     </div>
     {!! Form::open(['route' => 'user.location']) !!}
 
-    <input id="latitude" class="latitude" type="hidden" name="latitude" value="">
-    <input id="longitude" type="hidden" name="longitude" value="">
+    <label for="">Latitud:  </label><input id="latitude" class="latitude" type="" name="latitude" value="">
+    <label for="">Longitud:  </label><input id="longitude" type="" name="longitude" value="">
 
 
     <div class="flex space-x-2 mt-5 mb-5">
